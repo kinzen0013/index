@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cat's Space - วิธีเข้าหาแมว</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#ff9f43;
+    --secondary:#fab1a0;
+    --bg:#fefcfb;
+    --text:#2d3436;
+    --shadow:rgba(0,0,0,.15);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Kanit',sans-serif;
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    text-align:center;
+    overflow-x:hidden;
+}
+
+/* ========== COVER PAGE ========== */
+.cover-page{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position:relative;
+    overflow:hidden;
+    animation:fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+.cover-page::before{
+    content:'🐱';
+    position:absolute;
+    font-size:200px;
+    opacity:0.1;
+    top:10%;
+    left:-50px;
+    animation:float 6s ease-in-out infinite;
+}
+
+.cover-page::after{
+    content:'🐾';
+    position:absolute;
+    font-size:150px;
+    opacity:0.1;
+    bottom:10%;
+    right:-30px;
+    animation:float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-30px);}
+}
+
+.cover-content{
+    z-index:1;
+    color:#fff;
+    text-align:center;
+    padding:20px;
+}
+
+.cover-content h1{
+    font-size:4rem;
+    margin:0;
+    text-shadow:0 5px 15px rgba(0,0,0,.3);
+    animation:slideDown 1s ease-out;
+}
+
+@keyframes slideDown{
+    from{
+        opacity:0;
+        transform:translateY(-50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.cover-content .subtitle{
+    font-size:1.5rem;
+    margin:20px 0;
+    opacity:0.9;
+    animation:slideUp 1s ease-out 0.3s both;
+}
+
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.start-btn{
+    margin-top:40px;
+    padding:18px 50px;
+    font-size:1.3rem;
+    border:none;
+    border-radius:50px;
+    background:#fff;
+    color:#667eea;
+    cursor:pointer;
+    font-weight:600;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    transition:all 0.3s;
+    animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+}
+
+.start-btn:hover{
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.paw-prints{
+    position:absolute;
+    bottom:30px;
+    font-size:2rem;
+    opacity:0.3;
+    animation:pawWalk 3s ease-in-out infinite;
+}
+
+@keyframes pawWalk{
+    0%,100%{transform:translateX(-20px);}
+    50%{transform:translateX(20px);}
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content{
+    display:none;
+    animation:fadeIn 0.8s ease-in;
+}
+
+.main-content.active{
+    display:block;
+}
+
+header{
+    background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color:#fff;
+    padding:2.5rem;
+    box-shadow:0 5px 15px var(--shadow);
+    position:relative;
+}
+
+header::after{
+    content:'';
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:5px;
+    background:linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+}
+
+header h1{
+    margin:0;
+    font-size:2.5rem;
+    text-shadow:2px 2px 4px rgba(0,0,0,.2);
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.media-box{
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 35px var(--shadow);
+    background:#000;
+    transition:transform 0.3s;
+    margin-top:30px;
+}
+
+.media-box:hover{
+    transform:translateY(-5px);
+}
+
+video,img{
+    width:100%;
+    display:block;
+}
+
+.controls{
+    margin-top:15px;
+}
+
+.controls button{
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    color:#fff;
+    font-size:1rem;
+    font-weight:600;
+    box-shadow:0 5px 15px rgba(255,159,67,.3);
+    transition:all 0.3s;
+}
+
+.controls button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(255,159,67,.4);
+}
+
+.level-selector{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 25px;
+    border:2px solid #ddd;
+    border-radius:50px;
+    cursor:pointer;
+    background:#fff;
+    transition:all .3s;
+    font-weight:600;
+}
+
+.btn span{
+    display:block;
+    font-size:.8rem;
+    color:#666;
+    font-weight:400;
+}
+
+.btn.active{
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    color:#fff;
+    border-color:var(--primary);
+    transform:scale(1.1);
+    box-shadow:0 8px 20px rgba(255,159,67,.4);
+}
+
+.btn.active span{color:#fff;}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+#levelTitle{
+    margin-top:40px;
+    font-size:2rem;
+    color:var(--primary);
+}
+
+/* กล่องคำอธิบาย */
+.desc-box{
+    margin-top:30px;
+    padding:25px;
+    border-radius:20px;
+    background:#ffffff;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    text-align:left;
+    border-left:5px solid var(--primary);
+}
+
+.desc-box h3{
+    margin-top:0;
+    color:var(--primary);
+    font-size:1.5rem;
+}
+
+.desc-box p{
+    line-height:1.8;
+    margin-bottom:15px;
+    font-size:1.05rem;
+}
+
+/* Tips */
+.tips-box{
+    margin-top:20px;
+    padding:20px 25px;
+    border-radius:15px;
+    background:linear-gradient(135deg, #fff7ee 0%, #ffe8d6 100%);
+    border:2px dashed var(--primary);
+}
+
+.tips-box h4{
+    margin-top:0;
+    color:var(--primary);
+}
+
+.tips-box ul{
+    padding-left:20px;
+    margin:10px 0 0;
+}
+
+.tips-box li{
+    margin-bottom:10px;
+    line-height:1.7;
+    font-size:1.05rem;
+}
+
+/* Note */
+.note{
+    margin-top:15px;
+    padding:15px;
+    font-size:1rem;
+    color:#555;
+    background:#f0f0f0;
+    border-radius:10px;
+    border-left:4px solid var(--secondary);
+}
+
+/* ========== FEEDBACK SECTION ========== */
+.feedback-section{
+    margin-top:50px;
+    padding:30px;
+    background:#fff;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.feedback-section h3{
+    color:var(--primary);
+    font-size:1.8rem;
+    margin-bottom:20px;
+}
+
+.emoji-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.emoji-btn{
+    font-size:3rem;
+    background:none;
+    border:3px solid transparent;
+    border-radius:50%;
+    cursor:pointer;
+    transition:all 0.3s;
+    padding:10px;
+    width:80px;
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.emoji-btn:hover{
+    transform:scale(1.2) rotate(10deg);
+    border-color:var(--primary);
+    background:#fff7ee;
+}
+
+.emoji-btn.selected{
+    border-color:var(--primary);
+    background:linear-gradient(135deg, #fff7ee, #ffe8d6);
+    animation:bounce 0.5s;
+}
+
+@keyframes bounce{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.3);}
+}
+
+.feedback-stats{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:30px;
+}
+
+.stat-item{
+    text-align:center;
+    padding:15px;
+    background:#f8f9fa;
+    border-radius:15px;
+    min-width:100px;
+    transition:all 0.3s;
+}
+
+.stat-item:hover{
+    transform:translateY(-5px);
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.stat-emoji{
+    font-size:2.5rem;
+    margin-bottom:8px;
+}
+
+.stat-count{
+    font-size:1.5rem;
+    font-weight:600;
+    color:var(--primary);
+}
+
+.stat-label{
+    font-size:0.9rem;
+    color:#666;
+}
+
+.feedback-message{
+    margin-top:20px;
+    padding:15px;
+    background:#d4edda;
+    color:#155724;
+    border-radius:10px;
+    display:none;
+    animation:slideDown 0.5s;
+}
+
+.feedback-message.show{
+    display:block;
+}
+
+/* ========== SUMMARY SECTION ========== */
+.summary-section{
+    margin-top:50px;
+    padding:40px;
+    background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color:#fff;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+.summary-section h2{
+    font-size:2.2rem;
+    margin-bottom:25px;
+    text-shadow:2px 2px 4px rgba(0,0,0,.2);
+}
+
+.summary-content{
+    text-align:left;
+    max-width:700px;
+    margin:auto;
+    line-height:1.9;
+    font-size:1.1rem;
+}
+
+.summary-content p{
+    margin-bottom:20px;
+}
+
+.summary-highlight{
+    background:rgba(255,255,255,.2);
+    padding:20px;
+    border-radius:15px;
+    margin-top:25px;
+    border-left:5px solid #fff;
+}
+
+.summary-highlight strong{
+    color:#ffd700;
+}
+
+/* ========== BACK TO TOP ========== */
+.back-to-top{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    background:var(--primary);
+    color:#fff;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    border:none;
+    font-size:1.5rem;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+    display:none;
+    transition:all 0.3s;
+    z-index:1000;
+}
+
+.back-to-top.show{
+    display:block;
+    animation:fadeIn 0.5s;
+}
+
+.back-to-top:hover{
+    transform:translateY(-5px);
+    background:var(--secondary);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width:768px){
+    .cover-content h1{font-size:2.5rem;}
+    .cover-content .subtitle{font-size:1.2rem;}
+    header h1{font-size:2rem;}
+    .emoji-btn{font-size:2.5rem; width:70px; height:70px;}
+    .summary-section{padding:25px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ========== COVER PAGE ========== -->
+<div class="cover-page" id="coverPage">
+    <div class="cover-content">
+        <h1>🐾 Cat's Space 🐾</h1>
+        <p class="subtitle">เรียนรู้วิธีเข้าหาเจ้าเหมียวอย่างถูกวิธี</p>
+        <p class="subtitle">ผ่าน 3 ระดับความสัมพันธ์</p>
+        <button class="start-btn" onclick="startExperience()">เริ่มต้นการเรียนรู้ 🚀</button>
+    </div>
+    <div class="paw-prints">🐾 🐾 🐾</div>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div class="main-content" id="mainContent">
+
+<header>
+<h1>🐾 Cat's Space</h1>
+<p>เรียนรู้วิธีเข้าหาเจ้าเหมียวอย่างถูกวิธี ผ่าน 3 ระดับความสัมพันธ์</p>
+</header>
+
+<main class="container">
+
+<div class="media-box">
+    <img id="imageDisplay" src="images/level1.png" alt="Cat Level">
+
+    <video id="videoDisplay" controls style="display:none;">
+        <source id="videoSource" src="videos/level3.mp4" type="video/mp4">
+    </video>
+</div>
+
+<div class="controls">
+    <button id="replayBtn" onclick="replayVideo()" style="display:none;">🔁 เล่นใหม่</button>
+</div>
+
+<h2 id="levelTitle">Level 1: The Stranger</h2>
+
+<div class="desc-box">
+    <h3>📌 คำอธิบาย</h3>
+    <p id="levelDesc">
+        เมื่อเราเป็นคนแปลกหน้า แมวจะยังไม่ไว้ใจ การเข้าหาอย่างรวดเร็วอาจทำให้แมวตกใจ
+        สิ่งที่ดีที่สุดคือการให้เวลาและพื้นที่ เพื่อให้แมวเรียนรู้ว่าเราไม่เป็นอันตราย
+    </p>
+
+    <div class="tips-box">
+        <h4>🐱 คำแนะนำ</h4>
+        <ul id="tipsList">
+            <li>อย่าเข้าใกล้แมวทันที</li>
+            <li>หลีกเลี่ยงการจ้องตาโดยตรง</li>
+            <li>ปล่อยให้แมวเป็นฝ่ายเดินเข้ามาหา</li>
+        </ul>
+    </div>
+
+    <div class="note" id="levelNote">
+        💡 ระดับนี้คือพื้นฐานสำคัญ หากทำถูกต้อง จะช่วยให้แมวรู้สึกปลอดภัย
+    </div>
+</div>
+
+<nav class="level-selector">
+<button class="btn active"
+onclick="changeLevel(1,'The Stranger',
+'เมื่อเราเป็นคนแปลกหน้า แมวจะยังไม่มั่นใจ การรักษาระยะห่างช่วยลดความเครียดและสร้างความรู้สึกปลอดภัยให้แมว',
+'image')">
+<span>LV 1</span> แปลกหน้า
+</button>
+
+<button class="btn"
+onclick="changeLevel(2,'The Acquaintance',
+'เมื่อแมวเริ่มคุ้นเคย เราสามารถเริ่มมีปฏิสัมพันธ์เบา ๆ เพื่อสร้างความไว้วางใจ',
+'image')">
+<span>LV 2</span> คนรู้จัก
+</button>
+
+<button class="btn"
+onclick="changeLevel(3,'The Bestie',
+'ระดับของความไว้ใจสูงสุด ที่แมวยอมรับเราเป็นเพื่อนและรู้สึกสบายใจเมื่ออยู่ใกล้',
+'video')">
+<span>LV 3</span> เพื่อนสนิท
+</button>
+</nav>
+
+<!-- ========== FEEDBACK SECTION ========== -->
+<div class="feedback-section">
+    <h3>😺 บทเรียนนี้เป็นอย่างไรบ้าง?</h3>
+    <p>แชร์ความรู้สึกของคุณเกี่ยวกับบทเรียนนี้</p>
+    
+    <div class="emoji-buttons">
+        <button class="emoji-btn" onclick="submitFeedback('love')" title="รักมาก!">😍</button>
+        <button class="emoji-btn" onclick="submitFeedback('happy')" title="ชอบมาก">😊</button>
+        <button class="emoji-btn" onclick="submitFeedback('good')" title="ดีมาก">👍</button>
+        <button class="emoji-btn" onclick="submitFeedback('ok')" title="พอใช้">😐</button>
+        <button class="emoji-btn" onclick="submitFeedback('sad')" title="ไม่ชอบ">😔</button>
+    </div>
+
+    <div class="feedback-message" id="feedbackMessage">
+        ✨ ขอบคุณสำหรับความคิดเห็นของคุณ!
+    </div>
+
+    <div class="feedback-stats">
+        <div class="stat-item">
+            <div class="stat-emoji">😍</div>
+            <div class="stat-count" id="countLove">127</div>
+            <div class="stat-label">รักมาก</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-emoji">😊</div>
+            <div class="stat-count" id="countHappy">89</div>
+            <div class="stat-label">ชอบมาก</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-emoji">👍</div>
+            <div class="stat-count" id="countGood">56</div>
+            <div class="stat-label">ดีมาก</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-emoji">😐</div>
+            <div class="stat-count" id="countOk">12</div>
+            <div class="stat-label">พอใช้</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-emoji">😔</div>
+            <div class="stat-count" id="countSad">3</div>
+            <div class="stat-label">ไม่ชอบ</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== SUMMARY SECTION ========== -->
+<div class="summary-section">
+    <h2>📝 สรุปบทเรียน</h2>
+    <div class="summary-content">
+        <p>
+            <strong>🎯 สิ่งสำคัญที่สุดในการเข้าหาแมว</strong> คือการเข้าใจว่าแมวเป็นสัตว์ที่ต้องการความรู้สึกปลอดภัย 
+            และมีสัญชาตญาณในการระวังสิ่งแปลกปลอม การสร้างความสัมพันธ์ที่ดีกับแมวต้องอาศัยเวลา ความอดทน และความเข้าใจ
+        </p>
+
+        <div class="summary-highlight">
+            <p><strong>✨ หลักการ 3 ขั้นตอน:</strong></p>
+            <p>
+                <strong>Level 1 - แปลกหน้า:</strong> ให้เวลาและพื้นที่ แสดงให้แมวเห็นว่าเราไม่เป็นอันตราย<br><br>
+                <strong>Level 2 - คนรู้จัก:</strong> เริ่มสร้างปฏิสัมพันธ์ด้วยความนุ่มนวลและความเคารพ<br><br>
+                <strong>Level 3 - เพื่อนสนิท:</strong> รักษาความไว้วางใจด้วยการเคารพขอบเขตของแมวอยู่เสมอ
+            </p>
+        </div>
+
+        <p style="margin-top:25px;">
+            💝 จำไว้ว่า แมวแต่ละตัวมีบุคลิกที่แตกต่างกัน สิ่งที่เหมาะกับแมวหนึ่งอาจไม่เหมาะกับอีกตัว 
+            การเป็นเจ้าของแมวที่ดีคือการเรียนรู้ที่จะอ่านภาษากายและเข้าใจความต้องการของเจ้าเหมียวแต่ละตัว
+        </p>
+
+        <p>
+            <strong>🌟 สุดท้าย...</strong> อย่าลืมว่าความสัมพันธ์ที่ดีต้องใช้เวลา ความรัก ความใส่ใจ และความเคารพซึ่งกันและกัน 
+            เมื่อแมวไว้ใจเราแล้ว พวกเขาจะเป็นเพื่อนที่น่ารักและภักดีที่สุดในชีวิต! 🐱💕
+        </p>
+    </div>
+</div>
+
+</main>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">⬆️</button>
+
+</div>
+
+<script>
+// ========== DATA ==========
+const tipsData={
+    1:[
+        "อย่าเข้าใกล้แมวทันที",
+        "หลีกเลี่ยงการจ้องตา",
+        "ให้แมวเป็นฝ่ายเริ่มก่อน"
+    ],
+    2:[
+        "ยื่นนิ้วให้แมวดมกลิ่น",
+        "ลูบเบา ๆ บริเวณหัวหรือคาง",
+        "หยุดทันทีถ้าแมวถอยหนี"
+    ],
+    3:[
+        "รู้จุดที่แมวชอบให้เกา",
+        "เล่นกับแมวด้วยของเล่น",
+        "เคารพพื้นที่ส่วนตัวของแมว"
+    ]
+};
+
+const noteData={
+    1:"💡 ระยะห่างคือกุญแจสำคัญของความไว้ใจ",
+    2:"💡 ความสม่ำเสมอช่วยสร้างความคุ้นเคย",
+    3:"💡 แมวจะเลือกเราเอง เมื่อรู้สึกปลอดภัยจริง ๆ (คำเตือน‼️:อย่าทำให้แมวตกใจอย่าไปกวนตอนที่กำลังเล่นอยู่ไม่งั้นแมวจะให้ของกับคุณเหมือนในคลิป)"
+};
+
+// Feedback counts (จำลองข้อมูลจากผู้ใช้ก่อนหน้า)
+let feedbackCounts = {
+    love: 127,
+    happy: 89,
+    good: 56,
+    ok: 12,
+    sad: 3
+};
+
+// ========== COVER PAGE ==========
+function startExperience(){
+    document.getElementById('coverPage').style.display='none';
+    document.getElementById('mainContent').classList.add('active');
+    window.scrollTo(0,0);
+}
+
+// ========== LEVEL CHANGE ==========
+function changeLevel(level,title,desc,type){
+    const img=document.getElementById('imageDisplay');
+    const video=document.getElementById('videoDisplay');
+    const source=document.getElementById('videoSource');
+    const replay=document.getElementById('replayBtn');
+    const buttons=document.querySelectorAll('.btn');
+    const tipsList=document.getElementById('tipsList');
+
+    document.getElementById('levelTitle').innerText=`Level ${level}: ${title}`;
+    document.getElementById('levelDesc').innerText=desc;
+    document.getElementById('levelNote').innerText=noteData[level];
+
+    if(type==='image'){
+        video.style.display='none';
+        replay.style.display='none';
+        img.style.display='block';
+        img.src = `images/level${level}.png`;
+    }else{
+        img.style.display='none';
+        video.style.display='block';
+        replay.style.display='inline-block';
+        source.src=`videos/level${level}.mp4`;
+        video.load();
+        video.play();
+    }
+
+    tipsList.innerHTML="";
+    tipsData[level].forEach(t=>{
+        const li=document.createElement("li");
+        li.innerText=t;
+        tipsList.appendChild(li);
+    });
+
+    buttons.forEach((b,i)=>b.classList.toggle('active',i===level-1));
+
+    // Scroll to top of content
+    window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ========== VIDEO REPLAY ==========
+function replayVideo(){
+    const video=document.getElementById('videoDisplay');
+    video.currentTime=0;
+    video.play();
+}
+
+// ========== FEEDBACK SYSTEM ==========
+function submitFeedback(type){
+    // เพิ่มจำนวน feedback
+    feedbackCounts[type]++;
+    
+    // อัพเดทตัวเลขในหน้า
+    document.getElementById('count' + type.charAt(0).toUpperCase() + type.slice(1)).innerText = feedbackCounts[type];
+    
+    // แสดงข้อความขอบคุณ
+    const message = document.getElementById('feedbackMessage');
+    message.classList.add('show');
+    
+    // เพิ่ม effect ให้กับปุ่มที่กด
+    const buttons = document.querySelectorAll('.emoji-btn');
+    buttons.forEach(btn => btn.classList.remove('selected'));
+    event.target.classList.add('selected');
+    
+    // ซ่อนข้อความหลังจาก 3 วินาที
+    setTimeout(() => {
+        message.classList.remove('show');
+    }, 3000);
+
+    // บันทึกลง localStorage
+    localStorage.setItem('catSpaceFeedback', JSON.stringify(feedbackCounts));
+}
+
+// ========== BACK TO TOP ==========
+window.addEventListener('scroll', function(){
+    const backToTop = document.getElementById('backToTop');
+    if(window.scrollY > 500){
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+});
+
+function scrollToTop(){
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ========== LOAD SAVED FEEDBACK ==========
+window.addEventListener('load', function(){
+    const saved = localStorage.getItem('catSpaceFeedback');
+    if(saved){
+        feedbackCounts = JSON.parse(saved);
+        // อัพเดทตัวเลขทั้งหมด
+        for(let type in feedbackCounts){
+            const elemId = 'count' + type.charAt(0).toUpperCase() + type.slice(1);
+            const elem = document.getElementById(elemId);
+            if(elem){
+                elem.innerText = feedbackCounts[type];
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
