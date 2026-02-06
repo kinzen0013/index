@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cat's Space - วิธีเข้าหาแมว</title>
+
+<style>
+:root{
+    --primary:#ff9f43;
+    --bg:#fefcfb;
+    --text:#2d3436;
+}
+body{
+    font-family:'Kanit',sans-serif;
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    text-align:center;
+}
+header{
+    background:var(--primary);
+    color:#fff;
+    padding:2rem;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+.media-box{
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+    background:#000;
+}
+video,img{
+    width:100%;
+    display:block;
+}
+.controls{
+    margin-top:15px;
+}
+.controls button{
+    padding:10px 25px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:#ddd;
+    font-size:1rem;
+}
+.level-selector{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+.btn{
+    padding:15px 25px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    background:#eee;
+    transition:.3s;
+}
+.btn span{
+    display:block;
+    font-size:.8rem;
+    color:#666;
+}
+.btn.active{
+    background:var(--primary);
+    color:#fff;
+}
+.btn.active span{color:#fff;}
+.btn:hover{transform:translateY(-3px);}
+
+/* กล่องคำอธิบาย */
+.desc-box{
+    margin-top:20px;
+    padding:20px;
+    border-radius:15px;
+    background:#ffffff;
+    box-shadow:0 5px 12px rgba(0,0,0,.08);
+    text-align:left;
+}
+.desc-box h3{
+    margin-top:0;
+    color:var(--primary);
+}
+.desc-box p{
+    line-height:1.7;
+    margin-bottom:12px;
+}
+
+/* Tips */
+.tips-box{
+    margin-top:15px;
+    padding:15px 20px;
+    border-radius:15px;
+    background:#fff7ee;
+}
+.tips-box ul{
+    padding-left:20px;
+    margin:10px 0 0;
+}
+.tips-box li{
+    margin-bottom:8px;
+    line-height:1.6;
+}
+
+/* Note */
+.note{
+    margin-top:10px;
+    font-size:.95rem;
+    color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🐾 Cat's Space</h1>
+<p>เรียนรู้วิธีเข้าหาเจ้าเหมียวอย่างถูกวิธี ผ่าน 3 ระดับความสัมพันธ์</p>
+</header>
+
+<main class="container">
+
+<div class="media-box">
+    <img id="imageDisplay" src="images/level1.png" alt="Cat Level">
+
+    <video id="videoDisplay" controls style="display:none;">
+        <source id="videoSource" src="videos/level3.mp4" type="video/mp4">
+    </video>
+</div>
+
+<div class="controls">
+    <button id="replayBtn" onclick="replayVideo()" style="display:none;">🔁 Replay</button>
+</div>
+
+<h2 id="levelTitle">Level 1: The Stranger</h2>
+
+<div class="desc-box">
+    <h3>📌 คำอธิบาย</h3>
+    <p id="levelDesc">
+        เมื่อเราเป็นคนแปลกหน้า แมวจะยังไม่ไว้ใจ การเข้าหาอย่างรวดเร็วอาจทำให้แมวตกใจ
+        สิ่งที่ดีที่สุดคือการให้เวลาและพื้นที่ เพื่อให้แมวเรียนรู้ว่าเราไม่เป็นอันตราย
+    </p>
+
+    <div class="tips-box">
+        <h4>🐱 คำแนะนำ</h4>
+        <ul id="tipsList">
+            <li>อย่าเข้าใกล้แมวทันที</li>
+            <li>หลีกเลี่ยงการจ้องตาโดยตรง</li>
+            <li>ปล่อยให้แมวเป็นฝ่ายเดินเข้ามาหา</li>
+        </ul>
+    </div>
+
+    <div class="note" id="levelNote">
+        💡 ระดับนี้คือพื้นฐานสำคัญ หากทำถูกต้อง จะช่วยให้แมวรู้สึกปลอดภัย
+    </div>
+</div>
+
+<nav class="level-selector">
+<button class="btn active"
+onclick="changeLevel(1,'The Stranger',
+'เมื่อเราเป็นคนแปลกหน้า แมวจะยังไม่มั่นใจ การรักษาระยะห่างช่วยลดความเครียดและสร้างความรู้สึกปลอดภัยให้แมว',
+'image')">
+<span>LV 1</span> แปลกหน้า
+</button>
+
+<button class="btn"
+onclick="changeLevel(2,'The Acquaintance',
+'เมื่อแมวเริ่มคุ้นเคย เราสามารถเริ่มมีปฏิสัมพันธ์เบา ๆ เพื่อสร้างความไว้วางใจ',
+'image')">
+<span>LV 2</span> คนรู้จัก
+</button>
+
+<button class="btn"
+onclick="changeLevel(3,'The Bestie',
+'ระดับของความไว้ใจสูงสุด ที่แมวยอมรับเราเป็นเพื่อนและรู้สึกสบายใจเมื่ออยู่ใกล้',
+'video')">
+<span>LV 3</span> เพื่อนสนิท
+</button>
+</nav>
+
+</main>
+
+<script>
+const tipsData={
+    1:[
+        "อย่าเข้าใกล้แมวทันที",
+        "หลีกเลี่ยงการจ้องตา",
+        "ให้แมวเป็นฝ่ายเริ่มก่อน"
+    ],
+    2:[
+        "ยื่นนิ้วให้แมวดมกลิ่น",
+        "ลูบเบา ๆ บริเวณหัวหรือคาง",
+        "หยุดทันทีถ้าแมวถอยหนี"
+    ],
+    3:[
+        "รู้จุดที่แมวชอบให้เกา",
+        "เล่นกับแมวด้วยของเล่น",
+        "เคารพพื้นที่ส่วนตัวของแมว"
+    ]
+};
+
+const noteData={
+    1:"💡 ระยะห่างคือกุญแจสำคัญของความไว้ใจ",
+    2:"💡 ความสม่ำเสมอช่วยสร้างความคุ้นเคย",
+    3:"💡 แมวจะเลือกเราเอง เมื่อรู้สึกปลอดภัยจริง ๆ (คำเตือน‼‼:อย่าทำไห้เเมวตกใจอย่าไปกวนตอนที่กำลังเล่นอยู่ไม่งั้นเเมวจะไห้ของกับคุณเหมือนในคลิป)"
+};
+
+function changeLevel(level,title,desc,type){
+    const img=document.getElementById('imageDisplay');
+    const video=document.getElementById('videoDisplay');
+    const source=document.getElementById('videoSource');
+    const replay=document.getElementById('replayBtn');
+    const buttons=document.querySelectorAll('.btn');
+    const tipsList=document.getElementById('tipsList');
+
+    document.getElementById('levelTitle').innerText=`Level ${level}: ${title}`;
+    document.getElementById('levelDesc').innerText=desc;
+    document.getElementById('levelNote').innerText=noteData[level];
+
+    if(type==='image'){
+        video.style.display='none';
+        replay.style.display='none';
+        img.style.display='block';
+        img.src = `images/level${level}.png`;
+
+    }else{
+        img.style.display='none';
+        video.style.display='block';
+        replay.style.display='inline-block';
+        source.src=`videos/level${level}.mp4`;
+        video.load();
+        video.play();
+    }
+
+    tipsList.innerHTML="";
+    tipsData[level].forEach(t=>{
+        const li=document.createElement("li");
+        li.innerText=t;
+        tipsList.appendChild(li);
+    });
+
+    buttons.forEach((b,i)=>b.classList.toggle('active',i===level-1));
+}
+
+function replayVideo(){
+    const video=document.getElementById('videoDisplay');
+    video.currentTime=0;
+    video.play();
+}
+</script>
+
+</body>
+</html>
